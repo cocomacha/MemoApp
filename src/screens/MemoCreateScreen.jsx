@@ -11,7 +11,11 @@ import CircleButton from "../components/CircleButton";
 
 export default function MemoCreateScreen() {
   return (
-    <KeyboardAvoidingView style={StyleSheet.container} behavior="height">
+    <KeyboardAvoidingView
+      style={StyleSheet.container}
+      behavior="height"
+      keyboardVerticalOffset="60"
+    >
       <AppBar />
       <View style={styles.inputContainer}>
         <TextInput value="" multiline style={styles.input} />
