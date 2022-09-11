@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -7,21 +7,63 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import AppBar from "../components/AppBar";
+import { CommonActions } from "@react-navigation/native";
+
 import Button from "../components/Button";
 
-export default function SignUpScreen() {
+export default function SignUpScreen(props) {
+  const { navigation } = props;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <View style={styles.container}>
-      <AppBar />
       <View style={styles.inner}>
         <Text style={styles.title}>Sign Up</Text>
-        <TextInput style={styles.input} value="Email Address" />
-        <TextInput style={styles.input} value="Password" />
-        <Button label="Sign up" />
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={(text) => {
+            setEmail(text);
+          }}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          placeholder="Email Address"
+          textContentType="emailAddress"
+        />
+        <TextInput
+          style={styles.input}
+          value={password}
+          onChangeText={(text) => {
+            setPassword(text);
+          }}
+          autoCapitalize="none"
+          placeholder="Password"
+          secureTextEntry
+          textContentType="password"
+        />
+        <Button
+          label="Sign up"
+          onPress={() => {
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [{ name: "MemoList" }],
+              })
+            );
+          }}
+        />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already registered?</Text>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [{ name: "LogIn" }],
+                })
+              );
+            }}
+          >
             <Text style={styles.footerLink}>Log in.</Text>
           </TouchableOpacity>
         </View>
